@@ -1,4 +1,4 @@
-package apiServer
+package api
 
 import (
 	"crypto/tls"

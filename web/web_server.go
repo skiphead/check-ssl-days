@@ -1,7 +1,7 @@
 package web
 
 import (
-	"check-ssl-service/internal/apiServer"
+	"check-ssl-service/internal/api"
 	"fmt"
 	"log"
 	"net/http"
@@ -12,16 +12,16 @@ var tmpl = template.Must(template.ParseGlob("web/templates/*"))
 
 func CheckTLS(w http.ResponseWriter, r *http.Request) {
 	check := r.URL.Query().Get("url_check")
-	//fmt.Println(apiServer.CheckTLS(check))
+	//fmt.Println(api.CheckTLS(check))
 	fmt.Println(check)
 
 	if check != "" {
-		errExecuteTmpl := tmpl.ExecuteTemplate(w, "Main", apiServer.CheckTLS(check))
+		errExecuteTmpl := tmpl.ExecuteTemplate(w, "Main", api.CheckTLS(check))
 		if errExecuteTmpl != nil {
 			log.Println(errExecuteTmpl)
 		}
 	} else {
-		res := apiServer.DayStruct{
+		res := api.DayStruct{
 			Day: "input endpoint",
 		}
 		errExecuteTmpl := tmpl.ExecuteTemplate(w, "Main", res)

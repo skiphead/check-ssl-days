@@ -1,7 +1,7 @@
 package main
 
 import (
-	"check-ssl-service/internal/apiServer"
+	"check-ssl-service/internal/api"
 	"check-ssl-service/web"
 	"log"
 	"net/http"
@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	apiServer.CheckTLS("yandex.ru:443")
+	api.CheckTLS("yandex.ru:443")
 
 	mux := http.NewServeMux()
 	web.Include(mux)
@@ -18,7 +18,7 @@ func main() {
 
 	//Configuration server
 	server := &http.Server{
-		Addr:           ":" + apiServer.Conf.Port,
+		Addr:           ":" + api.Conf.Port,
 		Handler:        mux,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
@@ -29,7 +29,7 @@ func main() {
 	//		log.Println("TLS HTTP Server listen Port", conf.Port, "version", version())
 	//		log.Fatal(server.ListenAndServeTLS(conf.ServerCrt, conf.ServerKey))
 
-	//		log.Println("HTTP Server listen Port", apiServer.Conf.Port)
+	//		log.Println("HTTP Server listen Port", api.Conf.Port)
 	log.Fatal(server.ListenAndServe())
 
 }
