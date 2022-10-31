@@ -8,8 +8,8 @@ import (
 	"os"
 )
 
-//configStruct Struct for config json file
-type configStruct struct {
+//ConfigStruct Struct for config json file
+type ConfigStruct struct {
 	Port      string `json:"Port"`
 	ExpiredAt int    `json:"expired_at"`
 	TLS       bool   `json:"ssl"`
@@ -20,7 +20,7 @@ type configStruct struct {
 //Variables for config
 var (
 	configPath string
-	Conf       configStruct
+	Conf       ConfigStruct
 )
 
 // Init initialize config
@@ -30,17 +30,17 @@ func init() {
 }
 
 // OpenConf parsing json config file
-func OpenConf() configStruct {
+func OpenConf() ConfigStruct {
 
 	flag.Parse()
-	config := configStruct{}
+	config := ConfigStruct{}
 
 	configFile, errOpenConfigJson := os.Open(configPath)
 	if errOpenConfigJson != nil {
 		log.Println("Error open config file", errOpenConfigJson)
 	}
 
-	log.Println("Successfully Opened configStruct", configPath)
+	log.Println("Successfully Opened ConfigStruct", configPath)
 
 	defer func(configFile *os.File) {
 		errConfigFile := configFile.Close()

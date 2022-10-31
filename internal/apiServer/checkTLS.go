@@ -42,7 +42,12 @@ func CheckTLS(url string) DayStruct {
 	if err != nil {
 		log.Println(err)
 	}
-	defer conn.Close()
+	defer func(conn *tls.Conn) {
+		err = conn.Close()
+		if err != nil {
+
+		}
+	}(conn)
 	//fmt.Println(conn.ConnectionState())
 
 	expiry := conn.ConnectionState().PeerCertificates[0].NotAfter
